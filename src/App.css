@@ -28,6 +28,18 @@
   color: #61dafb;
 }
 
+.red{
+  color: red;
+}
+
+.blue{
+  color: blue;
+}
+
+.black{
+  color: black;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
