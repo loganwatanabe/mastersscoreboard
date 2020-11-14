@@ -95,6 +95,7 @@ function App() {
       headerName: 'Player',
       width: 160,
       valueGetter: getFullName,
+      headerClassName: 'header',
     }
   ]
 
@@ -313,10 +314,11 @@ function App() {
         renderHeader: (params: ColParams) => {
           let score = totals[round-1][index]
           return(
-          <React.Fragment>
-          {header} 
-          <span style={score<0 ? {color: 'red'} : score===0 ? {color: 'blue'} : {color: 'black'}}>{formatScore(score)}</span>
-          </React.Fragment>
+          <div style={{display: "inline-block", lineHeight: "2"}}>
+          Hole {header}
+          <br/>
+          Total: <span style={score<0 ? {color: 'red'} : score===0 ? {color: 'blue'} : {color: 'black'}}>{formatScore(score)}</span>
+          </div>
           )
         },
         width: 120,
@@ -325,6 +327,7 @@ function App() {
           let score = getHoleScoreInt(params.data, round, index+1)
           return scoreColor(score, params.data.status, index)
         },
+        headerClassName: 'hole-headers header',
       }
       )
     })
@@ -374,7 +377,7 @@ function App() {
         }
         </Grid>
         <Grid item xs={12} style={{textAlign: "center", height: "90%"}}>
-            <DataGrid rows={players} columns={columnCalc(tab)} pageSize={100} hideFooter autoHeight showColumnRightBorder showCellRightBorder/>
+            <DataGrid rows={players} columns={columnCalc(tab)} pageSize={100} hideFooter headerHeight={80} autoHeight showColumnRightBorder showCellRightBorder/>
 
         </Grid>
     </Grid>
