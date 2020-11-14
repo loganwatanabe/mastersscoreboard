@@ -24,7 +24,6 @@ function App() {
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
-    console.log(players)
   };
 
   function a11yProps(index) {
