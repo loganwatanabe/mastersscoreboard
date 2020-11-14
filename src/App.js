@@ -323,27 +323,29 @@ function App() {
         valueGetter: (params) => {return getHoleScore(params.data, round, index+1)},
         cellClassName: (params: CellClassParams) => {
           let score = getHoleScoreInt(params.data, round, index+1)
-          return scoreColor(score, params.data.status)
+          return scoreColor(score, params.data.status, index)
         },
       }
       )
     })
   }
 
-  const scoreColor = (score, status)=>{
+  const scoreColor = (score, status, index)=>{
+    let base = index%2 === 0 ? "even " : "odd "
     if(score < 0){
-      return('red')
+      base = base.concat('red')
     }else if(score > 0){
-      return('black')
+      base = base.concat('black')
     }else if(score === 0){
-      return('blue')
+      base = base.concat('blue')
     }else{
       if(status==="C" || status==="W"){
-        return('cut')
+        base='cut'
       }else{
-        return('pre')
+        base = base.concat("pre")
       }
     }
+    return base
   }
 
 
@@ -372,7 +374,7 @@ function App() {
         }
         </Grid>
         <Grid item xs={12} style={{textAlign: "center", height: "90%"}}>
-            <DataGrid rows={players} columns={columnCalc(tab)} pageSize={100} hideFooter autoHeight/>
+            <DataGrid rows={players} columns={columnCalc(tab)} pageSize={100} hideFooter autoHeight showColumnRightBorder showCellRightBorder/>
 
         </Grid>
     </Grid>

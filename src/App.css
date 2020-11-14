@@ -44,6 +44,10 @@
   background-color: grey;
 }
 
+.even{
+  background-color: #e8e8e8;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
