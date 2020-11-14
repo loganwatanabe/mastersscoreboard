@@ -42,6 +42,7 @@ function App() {
       //were gonna do all the data formatting here cuz its too fucking hard with the data grid
       if(x.data){
         //player, total, round totals
+        // console.log(x.data.player)
         let totes = [Array(18).fill(0),Array(18).fill(0),Array(18).fill(0),Array(18).fill(0)]
         setPlayers(x.data.player.map((p)=>{
           totes.forEach((r,rindex)=>{
@@ -115,24 +116,41 @@ function App() {
       headerName: 'R1 (72)',
       width: 160,
       valueGetter: (params) => {return getTotalScore(params.data,1)},
+      cellClassName: (params: CellClassParams) => {
+          let score = getTotalScoreInt(params.data, 1)
+          return scoreColor(score, params.data.status)
+      },
+
     },
     {
       field: "round2.total",
       headerName: 'R2 (72)',
       width: 160,
       valueGetter: (params) => {return getTotalScore(params.data,2)},
+      cellClassName: (params: CellClassParams) => {
+          let score = getTotalScoreInt(params.data, 2)
+          return scoreColor(score, params.data.status)
+      },
     },
     {
       field: "round3.total",
       headerName: 'R3 (72)',
       width: 160,
       valueGetter: (params) => {return getTotalScore(params.data,3)},
+      cellClassName: (params: CellClassParams) => {
+          let score = getTotalScoreInt(params.data, 3)
+          return scoreColor(score, params.data.status)
+      },
     },
     {
       field: "round4.total",
       headerName: 'R4 (72)',
       width: 160,
       valueGetter: (params) => {return getTotalScore(params.data,4)},
+      cellClassName: (params: CellClassParams) => {
+          let score = getTotalScoreInt(params.data, 4)
+          return scoreColor(score, params.data.status)
+      },
     }
   ]
 
@@ -142,25 +160,33 @@ function App() {
     switch(round){
       case 1:
         let strokes1 = parseInt(player.round1.total)
-        if(!strokes1){return("")}
+        if(!strokes1){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score1 = strokes1 - totalPar
         let scoreString1 = score1 > 0 ? "+".concat(score1) : score1.toString()
         return(scoreString1.concat(" (",strokes1,")"))
       case 2:
         let strokes2 = parseInt(player.round2.total)
-        if(!strokes2){return("")}
+        if(!strokes2){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score2 = strokes2 - totalPar
         let scoreString2 = score2 > 0 ? "+".concat(score2) : score2.toString()
         return(scoreString2.concat(" (",strokes2,")"))
       case 3:
         let strokes3 = parseInt(player.round3.total)
-        if(!strokes3){return("")}
+        if(!strokes3){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score3 = strokes3 - totalPar
         let scoreString3 = score3 > 0 ? "+".concat(score3) : score3.toString()
         return(scoreString3.concat(" (",strokes3,")"))
       case 4:
         let strokes4 = parseInt(player.round4.total)
-        if(!strokes4){return("")}
+        if(!strokes4){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score4 = strokes4 - totalPar
         let scoreString4 = score4 > 0 ? "+".concat(score4) : score4.toString()
         return(scoreString4.concat(" (",strokes4,")"))
@@ -169,30 +195,68 @@ function App() {
     }
   }
 
+  const getTotalScoreInt = (playa, round)=>{
+    if(!playa){return 0}
+    let player = playa
+    switch(round){
+      case 1:
+        let strokes1 = parseInt(player.round1.total)
+        if(!strokes1){return("")}
+        let score1 = strokes1 - totalPar
+        return(score1 ?? 0)
+      case 2:
+        let strokes2 = parseInt(player.round2.total)
+        if(!strokes2){return("")}
+        let score2 = strokes2 - totalPar
+        return(score2 ?? 0)
+      case 3:
+        let strokes3 = parseInt(player.round3.total)
+        if(!strokes3){return("")}
+        let score3 = strokes3 - totalPar
+        return(score3 ?? 0)
+      case 4:
+        let strokes4 = parseInt(player.round4.total)
+        if(!strokes4){return("")}
+        let score4 = strokes4 - totalPar
+        return(score4 ?? 0)
+      default:
+        return 0;
+    }
+  }
+
+
   const getHoleScore = (playa, round, hole)=>{
     let player = playa
     switch(round){
       case 1:
         let strokes1 = parseInt(player.round1.scores[hole-1])
-        if(!strokes1){return("")}
+        if(!strokes1){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score1 = strokes1 - pars[hole-1]
         let scoreString1 = score1 > 0 ? "+".concat(score1) : score1.toString()
         return(scoreString1.concat(" (",strokes1,")"))
       case 2:
         let strokes2 = parseInt(player.round2.scores[hole-1])
-        if(!strokes2){return("")}
+        if(!strokes2){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score2 = strokes2 - pars[hole-1]
         let scoreString2 = score2 > 0 ? "+".concat(score2) : score2.toString()
         return(scoreString2.concat(" (",strokes2,")"))
       case 3:
         let strokes3 = parseInt(player.round3.scores[hole-1])
-        if(!strokes3){return("")}
+        if(!strokes3){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score3 = strokes3 - pars[hole-1]
         let scoreString3 = score3 > 0 ? "+".concat(score3) : score3.toString()
         return(scoreString3.concat(" (",strokes3,")"))
       case 4:
         let strokes4 = parseInt(player.round4.scores[hole-1])
-        if(!strokes4){return("")}
+        if(!strokes4){
+          if(player.status === "C"){ return("CUT")}else if(player.status==="W"){return("WD")}else{ return("")}
+        }
         let score4 = strokes4 - pars[hole-1]
         let scoreString4 = score4 > 0 ? "+".concat(score4) : score4.toString()
         return(scoreString4.concat(" (",strokes4,")"))
@@ -259,17 +323,27 @@ function App() {
         valueGetter: (params) => {return getHoleScore(params.data, round, index+1)},
         cellClassName: (params: CellClassParams) => {
           let score = getHoleScoreInt(params.data, round, index+1)
-          if(score < 0){
-            return('red')
-          }else if(score > 0){
-            return('black')
-          }else{
-            return('blue')
-          }
+          return scoreColor(score, params.data.status)
         },
       }
       )
     })
+  }
+
+  const scoreColor = (score, status)=>{
+    if(score < 0){
+      return('red')
+    }else if(score > 0){
+      return('black')
+    }else if(score === 0){
+      return('blue')
+    }else{
+      if(status==="C" || status==="W"){
+        return('cut')
+      }else{
+        return('pre')
+      }
+    }
   }
 
 
