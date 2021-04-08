@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = "https://www.masters.com/en_US/scores/feeds/scores.json"
+const api = "https://www.masters.com/en_US/scores/feeds/2021/scores.json"
 
 
 export function mastersAPI(callback){
