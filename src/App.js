@@ -358,7 +358,7 @@ function App() {
         <Grid item xs={12} style={{textAlign: "center"}}>
           <h1>MASTERS SCORE BOARD*</h1>
           <p>* data is pulled from <a href="https://www.masters.com/en_US/scores/index.html">the Masters site.</a></p>
-          <p>i cobbled this together in a night, so save your complaints. positive vibes only, BOL</p>
+          <p>i cobbled this together. <a href='https://www.paypal.com/donate/?business=FSL2SK54Y2MGA&currency_code=USD'>donations appreciated</a>. positive vibes only, BOL</p>
         </Grid>
         <Grid item xs={12}>
         {loading ? <CircularProgress /> : <Tabs
